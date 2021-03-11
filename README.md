@@ -16,7 +16,7 @@ Options:
 ```
 ## Targets File 
 
-The targets file can be a list of domains, URLs etc.  For each line the crawler with extract the full hostname, validate it and cause a request to http://HOSTNAME/ads.txt
+The targets file can be a list of domains, URLs etc.  For each, line the crawler will extract the full hostname, validate it, and cause a request to http://HOSTNAME/ads.txt
 
 ``` bash
 $ cat target_domains.txt 
@@ -32,8 +32,8 @@ localhosttribune.com
 The project depends on these libraries and programs installed
 
 * Python 2 or better
-* Python HTTP Requests libary (pip install requests)
 * sqlite3
+* See requirements.txt for all Python packages to install
 
 Execute this command to install the DB table 
 ``` bash
@@ -66,7 +66,19 @@ This is an example prototype crawler and would be suitable only for a very modes
 
 ## Contributors
 
-Initial author is Neal Richter (neal@hebbian.io)
+Maintainer: Neal Richter, neal@spotx.tv or nrichter@gmail.com
+
+Contributors (GitHub.com account names)
+iantri
+jhpacker
+brk212
+bradlucas
+nag4
+AntoineJac
+markparolisi 
+sean-mcmann
+Breza
+miyaichi 
 
 ## License
 

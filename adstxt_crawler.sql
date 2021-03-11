@@ -1,19 +1,39 @@
 BEGIN TRANSACTION;
+
 DROP TABLE IF EXISTS adstxt;
 
 CREATE TABLE adstxt(
        SITE_DOMAIN                  TEXT    NOT NULL,
        EXCHANGE_DOMAIN              TEXT    NOT NULL,
-       ADSYSTEM_DOMAIN		    INTEGER     NOT NULL,
+       ADSYSTEM_DOMAIN		    INTEGER     NOT NULL DEFAULT (0),
        SELLER_ACCOUNT_ID            TEXT    NOT NULL,
        ACCOUNT_TYPE                 TEXT    NOT NULL,
        TAG_ID                       TEXT    NOT NULL,
        ENTRY_COMMENT                TEXT    NOT NULL,
-       UPDATED                      DATE    DEFAULT (datetime('now','localtime')),
+       UPDATED                      DATE    DEFAULT (datetime('now','utc')),
     PRIMARY KEY (SITE_DOMAIN,EXCHANGE_DOMAIN,SELLER_ACCOUNT_ID)
 );
 
--- Contribution by Ian Trider
+DROP TABLE IF EXISTS adstxt_contentdistributor;
+
+CREATE TABLE adstxt_contentdistributor(
+       SITE_DOMAIN                  TEXT    NOT NULL,
+       PRODUCER_DOMAIN           TEXT    NOT NULL,
+       ENTRY_COMMENT                TEXT    NOT NULL,
+       UPDATED                      DATE    DEFAULT (datetime('now','utc')),
+    PRIMARY KEY (SITE_DOMAIN,PRODUCER_DOMAIN)
+);
+
+DROP TABLE IF EXISTS adstxt_contentproducer;
+
+CREATE TABLE adstxt_contentproducer(
+       SITE_DOMAIN                  TEXT    NOT NULL,
+       DISTRIBUTOR_DOMAIN              TEXT    NOT NULL,
+       ENTRY_COMMENT                TEXT    NOT NULL,
+       UPDATED                      DATE    DEFAULT (datetime('now','utc')),
+    PRIMARY KEY (SITE_DOMAIN,DISTRIBUTOR_DOMAIN)
+);
+
 DROP TABLE IF EXISTS adsystem_domain;
 
 CREATE TABLE "adsystem_domain" (
@@ -21,6 +41,9 @@ CREATE TABLE "adsystem_domain" (
 	ID	INTEGER,
 	PRIMARY KEY(DOMAIN,ID)
 );
+
+--  VALUES BELOW
+
 INSERT INTO `adsystem_domain` VALUES ('adtech.com',11);
 INSERT INTO `adsystem_domain` VALUES ('aolcloud.net',11);
 INSERT INTO `adsystem_domain` VALUES ('appnexus.com',84);
@@ -120,6 +143,24 @@ INSERT INTO `adsystem_domain` VALUES ('videoflare.com',67);
 INSERT INTO `adsystem_domain` VALUES ('yahoo.com',68);
 INSERT INTO `adsystem_domain` VALUES ('yume.com',58);
 INSERT INTO `adsystem_domain` VALUES ('pixfuture.com',69);
+INSERT INTO `adsystem_domain` VALUES ('advertising.com',70);
+INSERT INTO `adsystem_domain` VALUES ('kargo.com',71);
+INSERT INTO `adsystem_domain` VALUES ('aps.amazon.com',72);
+INSERT INTO `adsystem_domain` VALUES ('behave.com',73);
+INSERT INTO `adsystem_domain` VALUES ('engagebdr.com',74);
+INSERT INTO `adsystem_domain` VALUES ('my6sense.com',75);
+INSERT INTO `adsystem_domain` VALUES ('nobid.io',76);
+INSERT INTO `adsystem_domain` VALUES ('synacor.com',77);
+INSERT INTO `adsystem_domain` VALUES ('telaria.com',78);
+INSERT INTO `adsystem_domain` VALUES ('themediagrid.com',79);
+INSERT INTO `adsystem_domain` VALUES ('tribalfusion.com',80);
+INSERT INTO `adsystem_domain` VALUES ('undertone.com',81);
+INSERT INTO `adsystem_domain` VALUES ('sortable.com',82);
+INSERT INTO `adsystem_domain` VALUES ('deployads.com',82);
+
+INSERT INTO `adsystem_domain` VALUES ('green_ssp.com',1001);
+INSERT INTO `adsystem_domain` VALUES ('violet_ssp.com',1002);
+INSERT INTO `adsystem_domain` VALUES ('grey_ssp.com',1003);
 
 DROP TABLE IF EXISTS adsystem;
 CREATE TABLE "adsystem" (
@@ -128,7 +169,7 @@ CREATE TABLE "adsystem" (
 	CANONICAL_DOMAIN	TEXT,
 	PRIMARY KEY(ID)
 );
-INSERT INTO `adsystem` VALUES (1,'Rubicon',NULL);
+INSERT INTO `adsystem` VALUES (1,'Rubicon',"rubiconproject.com");
 INSERT INTO `adsystem` VALUES (2,'33Across',NULL);
 INSERT INTO `adsystem` VALUES (3,'PubMatic','pubmatic.com');
 INSERT INTO `adsystem` VALUES (4,'OpenX','openx.com');
@@ -197,6 +238,7 @@ INSERT INTO `adsystem` VALUES (67,'Videoflare',NULL);
 INSERT INTO `adsystem` VALUES (68,'Yahoo Ad Exchange',NULL);
 INSERT INTO `adsystem` VALUES (69,'PixFuture',NULL);
 INSERT INTO `adsystem` VALUES (77,'Tremor',NULL);
+INSERT INTO `adsystem` VALUES (82,'Sortable','sortable.com');
 INSERT INTO `adsystem` VALUES (83,'TripleLift',NULL);
 INSERT INTO `adsystem` VALUES (84,'AppNexus','appnexus.com');
 INSERT INTO `adsystem` VALUES (86,'COMET',NULL);
@@ -205,5 +247,10 @@ INSERT INTO `adsystem` VALUES (94,'Teads','teads.tv');
 INSERT INTO `adsystem` VALUES (95,'PulsePoint',NULL);
 INSERT INTO `adsystem` VALUES (96,'District M',NULL);
 INSERT INTO `adsystem` VALUES (97,'Sharethrough',NULL);
+
+INSERT INTO `adsystem` VALUES (1001,'Green SSP (Demo)','green_ssp.com');
+INSERT INTO `adsystem` VALUES (1002,'Violet SSP (Demo)','violet_ssp.com');
+INSERT INTO `adsystem` VALUES (1003,'Grey SSP (Demo)','grey_ssp.com');
+
 COMMIT;
 
